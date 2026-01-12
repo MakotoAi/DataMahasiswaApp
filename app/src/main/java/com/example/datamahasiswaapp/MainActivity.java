@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     void getDataMahasiswa(String keyword) {
         list.clear();
         adapter.notifyDataSetChanged();
+        tvError.setVisibility(View.GONE);
 
         progressBar.setVisibility(View.VISIBLE);
         rvMahasiswa.setVisibility(View.GONE);
@@ -124,13 +125,19 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
 
-                    if (list.isEmpty()) {
-                        Toast.makeText(
-                                MainActivity.this,
-                                "Data tidak ditemukan",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        progressBar.setVisibility(View.GONE);
+                        adapter.notifyDataSetChanged();
+
+                        if (list.isEmpty()) {
+                            rvMahasiswa.setVisibility(View.GONE);
+                            tvError.setVisibility(View.VISIBLE);
+                            tvError.setText("Data tidak ditemukan");
+                        } else {
+                            rvMahasiswa.setVisibility(View.VISIBLE);
+                            tvError.setVisibility(View.GONE);
+                        }
+                    });
                 });
 
             } catch (Exception e) {
@@ -138,10 +145,11 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     rvMahasiswa.setVisibility(View.GONE);
                     tvError.setVisibility(View.VISIBLE);
+                    tvError.setText("Gagal mengambil data.\nPeriksa koneksi internet");
 
                     Toast.makeText(
                             MainActivity.this,
-                            "Gagal mengambil data. Periksa koneksi internet.",
+                            "Gagal mengambil data",
                             Toast.LENGTH_SHORT
                     ).show();
                 });

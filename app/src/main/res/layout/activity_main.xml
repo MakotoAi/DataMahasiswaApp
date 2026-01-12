@@ -5,6 +5,18 @@
     android:orientation="vertical"
     android:padding="24dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data Mahasiswa"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center"
+        android:padding="12dp"
+        android:textColor="@color/black" />
+
     <EditText
         android:id="@+id/etCari"
         android:layout_width="match_parent"
@@ -16,8 +28,6 @@
         android:visibility="gone"
         android:layout_marginTop="12dp"
         android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:textColor="@android:color/black"
         android:textSize="16sp"
         android:padding="12dp"
         android:gravity="center"
